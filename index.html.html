@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Meri Jaan 💕</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --midnight:#160b28;
+    --plum:#3a1f4d;
+    --rose:#ff6f9c;
+    --blush:#ffd6e8;
+    --gold:#f0c869;
+    --cream:#fff8f0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--midnight);
+    color:var(--cream);
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* ---------- EDIT THESE TWO LINES ---------- */
+  /* Girlfriend's name is set via JS variable GF_NAME below (search for it). */
+  /* Photos: replace photo1.jpg ... photo5.jpg in the same folder as this file. */
+
+  ::selection{background:var(--rose);color:var(--midnight);}
+
+  /* Starfield background */
+  #stars{position:fixed;inset:0;z-index:0;pointer-events:none;}
+  .star{position:absolute;background:#fff;border-radius:50%;opacity:.7;animation:twinkle 3s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:.15;}50%{opacity:.9;}}
+
+  /* Floating hearts */
+  .heart{position:fixed;bottom:-40px;pointer-events:none;z-index:1;opacity:.85;color:var(--rose);font-size:20px;animation:floatUp linear forwards;}
+  @keyframes floatUp{
+    0%{transform:translateY(0) translateX(0) rotate(0deg);opacity:0;}
+    10%{opacity:.9;}
+    100%{transform:translateY(-110vh) translateX(var(--drift,20px)) rotate(360deg);opacity:0;}
+  }
+
+  section{
+    position:relative;
+    z-index:2;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:60px 20px;
+  }
+
+  /* ---------------- ENVELOPE (COVER) ---------------- */
+  #cover{background:radial-gradient(ellipse at 50% 30%,var(--plum) 0%,var(--midnight) 70%);}
+  .envelope-wrap{cursor:pointer;text-align:center;}
+  .envelope{
+    width:220px;height:150px;
+    background:linear-gradient(135deg,var(--rose),#c94f7c);
+    border-radius:6px;
+    position:relative;
+    margin:0 auto 30px;
+    box-shadow:0 20px 50px rgba(255,111,156,.3);
+    transition:transform .4s ease;
+  }
+  .envelope-wrap:hover .envelope{transform:translateY(-6px) scale(1.03);}
+  .envelope::before{
+    content:"";
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    background:linear-gradient(135deg,rgba(255,255,255,.15),transparent 60%);
+    border-radius:6px;
+  }
+  .flap{
+    position:absolute;top:0;left:0;width:100%;height:76px;
+    background:linear-gradient(135deg,#ff8bb2,var(--rose));
+    clip-path:polygon(0 0,50% 62%,100% 0);
+    transform-origin:top;
+    transition:transform .8s cubic-bezier(.7,-0.2,.3,1.2);
+    border-radius:6px 6px 0 0;
+  }
+  .seal{
+    position:absolute;top:58px;left:50%;transform:translate(-50%,-50%);
+    width:38px;height:38px;background:var(--gold);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;color:var(--midnight);box-shadow:0 4px 10px rgba(0,0,0,.3);
+    z-index:3;transition:opacity .3s ease .3s;
+  }
+  .envelope-wrap.opened .flap{transform:rotateX(180deg);}
+  .envelope-wrap.opened .seal{opacity:0;}
+  .cover-title{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:1.3rem;color:var(--blush);letter-spacing:1px;
+  }
+  .cover-sub{margin-top:10px;font-size:.85rem;color:#d8c6e6;letter-spacing:2px;text-transform:uppercase;}
+
+  /* ---------------- HERO / HAPPY BIRTHDAY ---------------- */
+  #hero{display:none;}
+  #hero.show{display:flex;}
+  .hero-title{
+    font-family:'Great Vibes',cursive;
+    font-size:clamp(3rem,10vw,6.5rem);
+    color:var(--rose);
+    text-shadow:0 0 30px rgba(255,111,156,.5);
+    line-height:1.1;
+  }
+  .hero-name{
+    display:block;
+    font-family:'Great Vibes',cursive;
+    color:var(--gold);
+    font-size:clamp(2.5rem,9vw,5.5rem);
+    margin-top:5px;
+  }
+  .hero-line{
+    margin-top:24px;font-family:'Cormorant Garamond',serif;font-size:1.3rem;
+    max-width:560px;color:var(--blush);font-style:italic;
+  }
+  .scroll-hint{margin-top:50px;font-size:.75rem;letter-spacing:3px;color:#c9b6da;text-transform:uppercase;animation:bob 2s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
+
+  /* ---------------- SECTION HEADERS ---------------- */
+  .eyebrow{font-size:.75rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+  .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,5vw,2.8rem);color:var(--cream);margin-bottom:40px;}
+  .fade-in{opacity:0;transform:translateY(30px);transition:opacity .9s ease,transform .9s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+
+  /* ---------------- PHOTO GALLERY ---------------- */
+  #gallery{background:linear-gradient(180deg,var(--midnight),var(--plum) 50%,var(--midnight));}
+  .gallery-grid{display:flex;flex-wrap:wrap;gap:28px;justify-content:center;max-width:1000px;}
+  .polaroid{
+    background:var(--cream);padding:14px 14px 40px;border-radius:4px;
+    width:220px;box-shadow:0 15px 30px rgba(0,0,0,.4);
+    transform:rotate(var(--rot,0deg));transition:transform .3s ease;
+  }
+  .polaroid:hover{transform:rotate(0deg) scale(1.05) translateY(-6px);}
+  .polaroid:nth-child(1){--rot:-6deg;}
+  .polaroid:nth-child(2){--rot:4deg;}
+  .polaroid:nth-child(3){--rot:-3deg;}
+  .polaroid:nth-child(4){--rot:6deg;}
+  .polaroid:nth-child(5){--rot:-5deg;}
+  .photo-frame{
+    width:100%;aspect-ratio:1/1;border-radius:2px;
+    background-size:cover;background-position:center;
+    background-color:#e9d9c8;
+    background-image:linear-gradient(135deg,#ffd6e8,#f0c869);
+  }
+  .polaroid p{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    color:#3a1f4d;text-align:center;margin-top:12px;font-size:.95rem;
+  }
+
+  /* ---------------- LOVE MESSAGE / LETTER ---------------- */
+  #love{background:radial-gradient(ellipse at 50% 50%,var(--plum) 0%,var(--midnight) 75%);}
+  .letter{
+    max-width:600px;background:rgba(255,248,240,.06);
+    border:1px solid rgba(240,200,105,.3);
+    border-radius:12px;padding:40px 34px;backdrop-filter:blur(6px);
+  }
+  .letter p{font-family:'Cormorant Garamond',serif;font-size:1.25rem;line-height:1.9;color:var(--blush);margin-bottom:16px;}
+  .letter .sign{font-family:'Great Vibes',cursive;font-size:2rem;color:var(--gold);margin-top:10px;}
+  .beating-heart{font-size:3rem;color:var(--rose);animation:beat 1.2s ease-in-out infinite;margin-bottom:20px;}
+  @keyframes beat{0%,100%{transform:scale(1);}25%{transform:scale(1.15);}40%{transform:scale(1);}}
+
+  /* ---------------- QUOTES ---------------- */
+  #quotes{background:linear-gradient(180deg,var(--midnight),var(--plum));}
+  .quote-box{max-width:640px;min-height:160px;display:flex;align-items:center;justify-content:center;}
+  .quote-text{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:clamp(1.3rem,3.5vw,1.8rem);color:var(--cream);
+    opacity:0;transition:opacity .6s ease;
+  }
+  .quote-text.active{opacity:1;}
+  .quote-dots{display:flex;gap:10px;margin-top:30px;}
+  .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer;transition:background .3s ease;}
+  .dot.active{background:var(--rose);}
+
+  /* ---------------- FINALE ---------------- */
+  #finale{background:radial-gradient(ellipse at 50% 40%,var(--plum),var(--midnight) 70%);}
+  .finale-title{font-family:'Great Vibes',cursive;font-size:clamp(2.5rem,8vw,4rem);color:var(--rose);margin-bottom:20px;}
+  .finale-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;color:var(--blush);max-width:520px;margin-bottom:36px;}
+  .music-btn{
+    display:flex;align-items:center;gap:10px;padding:14px 28px;border-radius:40px;
+    background:var(--rose);color:var(--midnight);border:none;font-family:'Poppins',sans-serif;
+    font-weight:600;font-size:.95rem;cursor:pointer;box-shadow:0 10px 25px rgba(255,111,156,.35);
+    transition:transform .25s ease;
+  }
+  .music-btn:hover{transform:translateY(-3px);}
+  .footer-note{margin-top:60px;font-size:.75rem;color:#8f7ba0;letter-spacing:1px;}
+
+  /* Confetti */
+  .confetti{position:fixed;top:-10px;z-index:5;pointer-events:none;border-radius:2px;}
+
+  @media(max-width:480px){
+    .letter{padding:30px 22px;}
+    .polaroid{width:44vw;}
+  }
+</style>
+</head>
+<body>
+
+<div id="stars"></div>
+
+<!-- ============ COVER / ENVELOPE ============ -->
+<section id="cover">
+  <div class="envelope-wrap" id="envelopeWrap">
+    <div class="envelope">
+      <div class="flap"></div>
+      <div class="seal">💌</div>
+    </div>
+    <p class="cover-title">Tumhare liye ek surprise hai...</p>
+    <p class="cover-sub">Tap to open</p>
+  </div>
+</section>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <h1 class="hero-title">Happy Birthday<span class="hero-name" id="nameSlot">Meri Jaan</span></h1>
+  <p class="hero-line">Aaj ka din khaas hai, kyunki aaj tum paida hui thi — meri zindagi ki sabse pyari wajah. 💕</p>
+  <p class="scroll-hint">↓ scroll karo ↓</p>
+</section>
+
+<!-- ============ PHOTO GALLERY ============ -->
+<section id="gallery">
+  <div class="eyebrow fade-in">Hamari Yaadein</div>
+  <h2 class="section-title fade-in">Har Photo Ek Kahani Hai</h2>
+  <div class="gallery-grid">
+    <div class="polaroid fade-in"><div class="photo-frame" style="background-image:url('photo1.jpg')"></div><p>Pehli mulaqat 💫</p></div>
+    <div class="polaroid fade-in"><div class="photo-frame" style="background-image:url('photo2.jpg')"></div><p>Wo pyara sa pal ❤️</p></div>
+    <div class="polaroid fade-in"><div class="photo-frame" style="background-image:url('photo3.jpg')"></div><p>Hansi mazaak wale din 😄</p></div>
+    <div class="polaroid fade-in"><div class="photo-frame" style="background-image:url('photo4.jpg')"></div><p>Tumhari smile, meri favorite 🌙</p></div>
+    <div class="polaroid fade-in"><div class="photo-frame" style="background-image:url('photo5.jpg')"></div><p>Hum dono, hamesha 💍</p></div>
+  </div>
+</section>
+
+<!-- ============ LOVE LETTER ============ -->
+<section id="love">
+  <div class="beating-heart fade-in">💖</div>
+  <div class="letter fade-in">
+    <p>Meri jaan,</p>
+    <p>Tumse milne se pehle zindagi bas chal rahi thi, lekin tumhare aane ke baad zindagi jeene lagi. Tumhari har baat, tumhari har muskaan, mujhe thoda aur tumhare kareeb le aati hai.</p>
+    <p>Tum sirf meri girlfriend nahi ho, tum meri favorite feeling ho — wo sukoon jo sirf tumhare saath milta hai.</p>
+    <div class="sign">Sada tumhara 💫</div>
+  </div>
+</section>
+
+<!-- ============ QUOTES ============ -->
+<section id="quotes">
+  <div class="eyebrow fade-in">Dil Se</div>
+  <h2 class="section-title fade-in">Kuch Baatein, Sirf Tumhare Liye</h2>
+  <div class="quote-box">
+    <p class="quote-text" id="quoteText"></p>
+  </div>
+  <div class="quote-dots" id="quoteDots"></div>
+</section>
+
+<!-- ============ FINALE ============ -->
+<section id="finale">
+  <div class="finale-title fade-in">I Love You 💕</div>
+  <p class="finale-sub fade-in">Yeh saal tumhare liye khushiyon, pyaar aur sapno se bhara ho. Happy Birthday, meri jaan — hamesha aise hi muskurati raho.</p>
+  <button class="music-btn fade-in" id="musicBtn">🎵 Play Our Song</button>
+  <audio id="bgAudio" loop>
+    <!-- Apna love song yahan add karo: <source src="our-song.mp3" type="audio/mpeg"> -->
+  </audio>
+  <p class="footer-note fade-in">made with love, for you 🤍</p>
+</section>
+
+<script>
+  // ============ EDIT: girlfriend's name ============
+  const GF_NAME = "My Dear Vaiduuuuu❤️"; // <-- yahan uska naam likho, e.g. "Priya"
+  document.getElementById('nameSlot').textContent = GF_NAME;
+
+  // ============ Starfield ============
+  const starsWrap = document.getElementById('stars');
+  for(let i=0;i<70;i++){
+    const s = document.createElement('div');
+    s.className='star';
+    const size = Math.random()*2+1;
+    s.style.width=size+'px';
+    s.style.height=size+'px';
+    s.style.left=Math.random()*100+'%';
+    s.style.top=Math.random()*100+'%';
+    s.style.animationDelay=(Math.random()*3)+'s';
+    starsWrap.appendChild(s);
+  }
+
+  // ============ Floating hearts ============
+  const heartsEmoji = ['💗','💕','💖','❤️','💞'];
+  function spawnHeart(){
+    const h = document.createElement('div');
+    h.className='heart';
+    h.textContent = heartsEmoji[Math.floor(Math.random()*heartsEmoji.length)];
+    h.style.left = Math.random()*100+'vw';
+    h.style.setProperty('--drift',(Math.random()*80-40)+'px');
+    h.style.fontSize = (14+Math.random()*16)+'px';
+    const dur = 6+Math.random()*6;
+    h.style.animationDuration = dur+'s';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(), dur*1000);
+  }
+  setInterval(spawnHeart, 700);
+
+  // ============ Envelope open -> reveal hero + confetti ============
+  const envelopeWrap = document.getElementById('envelopeWrap');
+  const cover = document.getElementById('cover');
+  const hero = document.getElementById('hero');
+
+  envelopeWrap.addEventListener('click', () => {
+    if(envelopeWrap.classList.contains('opened')) return;
+    envelopeWrap.classList.add('opened');
+    burstConfetti();
+    setTimeout(()=>{
+      cover.style.transition='opacity .6s ease';
+      cover.style.opacity='0';
+      setTimeout(()=>{
+        cover.style.display='none';
+        hero.classList.add('show');
+        burstConfetti();
+      },600);
+    }, 900);
+  });
+
+  function burstConfetti(){
+    const colors = ['#ff6f9c','#f0c869','#ffd6e8','#c94f7c'];
+    for(let i=0;i<60;i++){
+      const c = document.createElement('div');
+      c.className='confetti';
+      c.style.left = Math.random()*100+'vw';
+      c.style.width = (6+Math.random()*6)+'px';
+      c.style.height = (10+Math.random()*8)+'px';
+      c.style.background = colors[Math.floor(Math.random()*colors.length)];
+      c.style.transform = `rotate(${Math.random()*360}deg)`;
+      document.body.appendChild(c);
+      const fall = c.animate([
+        {transform:`translateY(0) rotate(0deg)`, opacity:1},
+        {transform:`translateY(100vh) rotate(${360+Math.random()*360}deg)`, opacity:0.9}
+      ], {duration: 2500+Math.random()*1500, easing:'ease-in'});
+      fall.onfinish = ()=>c.remove();
+    }
+  }
+
+  // ============ Scroll reveal ============
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  },{threshold:.2});
+  document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+
+  // ============ Romantic quotes ============
+  const quotes = [
+    "Tumhare hone se meri zindagi mein har din ek naya rang aata hai.",
+    "Tum mere liye sirf pyaar nahi, meri sabse pyari kahani ho.",
+    "Har khushi adhoori lagti hai jab tak main use tumhare saath share na karu.",
+    "Tumhari muskaan meri sabse badi khushi hai.",
+    "Zindagi ke is safar mein, tumhara haath thaame rakhna hi meri sabse badi khwahish hai.",
+    "Janamdin mubarak, meri jaan — tum jaisa koi nahi hai."
+  ];
+  const quoteText = document.getElementById('quoteText');
+  const dotsWrap = document.getElementById('quoteDots');
+  let qIndex = 0;
+
+  quotes.forEach((_,i)=>{
+    const d = document.createElement('div');
+    d.className = 'dot'+(i===0?' active':'');
+    d.addEventListener('click', ()=>showQuote(i));
+    dotsWrap.appendChild(d);
+  });
+
+  function showQuote(i){
+    qIndex = i;
+    quoteText.classList.remove('active');
+    setTimeout(()=>{
+      quoteText.textContent = quotes[qIndex];
+      quoteText.classList.add('active');
+    },300);
+    document.querySelectorAll('.dot').forEach((d,idx)=>d.classList.toggle('active', idx===qIndex));
+  }
+  showQuote(0);
+  setInterval(()=>showQuote((qIndex+1)%quotes.length), 4000);
+
+  // ============ Music toggle ============
+  const musicBtn = document.getElementById('musicBtn');
+  const bgAudio = document.getElementById('bgAudio');
+  let playing = false;
+  musicBtn.addEventListener('click', ()=>{
+    if(!bgAudio.querySelector('source')){
+      musicBtn.textContent = '🎵 Add your song\'s mp3 file to enable';
+      return;
+    }
+    if(playing){ bgAudio.pause(); musicBtn.textContent='🎵 Play Our Song'; }
+    else { bgAudio.play(); musicBtn.textContent='⏸ Pause Our Song'; }
+    playing = !playing;
+  });
+</script>
+</body>
+</html>
