@@ -53,26 +53,39 @@
     transition:opacity .6s ease;
   }
   .envelope-wrap{cursor:pointer;}
-  .envelope{
-    width:200px;height:135px;background:linear-gradient(135deg,var(--rose),#c94f7c);
-    border-radius:6px;position:relative;margin:0 auto 26px;
-    box-shadow:0 20px 50px rgba(255,111,156,.3);transition:transform .4s ease;
+  .cover-mascot-img{
+    width:170px;max-width:60vw;display:block;margin:0 auto 4px;
+    animation:hugBounce 2.4s ease-in-out infinite;
+    filter:drop-shadow(0 14px 20px rgba(0,0,0,.4));
   }
-  .envelope-wrap:hover .envelope{transform:translateY(-6px) scale(1.03);}
-  .flap{
-    position:absolute;top:0;left:0;width:100%;height:70px;
-    background:linear-gradient(135deg,#ff8bb2,var(--rose));
-    clip-path:polygon(0 0,50% 62%,100% 0);transform-origin:top;
-    transition:transform .8s cubic-bezier(.7,-0.2,.3,1.2);border-radius:6px 6px 0 0;
+  .cover-envelope{font-size:36px;margin-bottom:14px;animation:heartPulse 1.2s ease-in-out infinite;}
+  @keyframes hugBounce{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-10px) rotate(-2deg);}}
+  @keyframes heartPulse{0%,100%{transform:scale(1);opacity:.85;}50%{transform:scale(1.25);opacity:1;}}
+  .cover-love{
+    font-family:'Poppins',sans-serif;font-weight:600;letter-spacing:3px;
+    font-size:1.8rem;color:var(--rose);text-shadow:0 0 18px rgba(255,111,156,.5);
+    margin-bottom:10px;
   }
-  .seal{
-    position:absolute;top:52px;left:50%;transform:translate(-50%,-50%);
-    width:34px;height:34px;background:var(--gold);border-radius:50%;
-    display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--midnight);
-    box-shadow:0 4px 10px rgba(0,0,0,.3);z-index:3;transition:opacity .3s ease .3s;
+
+  /* ---------------- MASCOT BADGE (appears on every story slide) ---------------- */
+  #mascotBadge{
+    position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+    z-index:12;pointer-events:none;display:none;align-items:center;
+    filter:drop-shadow(0 6px 12px rgba(0,0,0,.4));
   }
-  .envelope-wrap.opened .flap{transform:rotateX(180deg);}
-  .envelope-wrap.opened .seal{opacity:0;}
+  #mascotBadge img{width:52px;height:auto;}
+  .anim-bounce{animation:bounceIn .8s ease both;}
+  .anim-slide-left{animation:slideLeftIn .7s ease both;}
+  .anim-slide-right{animation:slideRightIn .7s ease both;}
+  .anim-spin{animation:spinIn .8s ease both;}
+  .anim-pop{animation:popIn .6s ease both;}
+  .anim-flip{animation:flipIn .8s ease both;}
+  @keyframes bounceIn{0%{transform:translateX(-50%) translateY(60px) scale(.5);opacity:0;}60%{transform:translateX(-50%) translateY(-10px) scale(1.08);opacity:1;}100%{transform:translateX(-50%) translateY(0) scale(1);opacity:1;}}
+  @keyframes slideLeftIn{0%{transform:translateX(-150%);opacity:0;}100%{transform:translateX(-50%);opacity:1;}}
+  @keyframes slideRightIn{0%{transform:translateX(50%);opacity:0;}100%{transform:translateX(-50%);opacity:1;}}
+  @keyframes spinIn{0%{transform:translateX(-50%) rotate(-200deg) scale(.3);opacity:0;}100%{transform:translateX(-50%) rotate(0) scale(1);opacity:1;}}
+  @keyframes popIn{0%{transform:translateX(-50%) scale(0);opacity:0;}70%{transform:translateX(-50%) scale(1.18);opacity:1;}100%{transform:translateX(-50%) scale(1);opacity:1;}}
+  @keyframes flipIn{0%{transform:translateX(-50%) rotateY(90deg);opacity:0;}100%{transform:translateX(-50%) rotateY(0);opacity:1;}}
   .cover-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;color:var(--blush);}
   .cover-sub{margin-top:10px;font-size:.8rem;color:#d8c6e6;letter-spacing:2px;text-transform:uppercase;}
 
@@ -122,6 +135,20 @@
   }
   .polaroid p{font-family:'Cormorant Garamond',serif;font-style:italic;color:#3a1f4d;text-align:center;margin-top:12px;font-size:.95rem;}
 
+  #s-collage{background:linear-gradient(180deg,var(--midnight),var(--plum) 55%,var(--midnight));}
+  .collage-title{font-family:'Great Vibes',cursive;font-size:clamp(1.9rem,7vw,2.8rem);color:var(--rose);text-shadow:0 0 20px rgba(255,111,156,.4);}
+  .collage-names{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);font-size:1.05rem;margin-top:4px;margin-bottom:16px;}
+  .collage-wrap{position:relative;width:min(84vw,320px);aspect-ratio:3/3.6;margin:0 auto;}
+  .heart-backdrop{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:min(60vw,270px);opacity:.10;color:var(--rose);z-index:0;pointer-events:none;}
+  .c-photo{position:absolute;background:var(--cream);padding:5%;border-radius:4px;box-shadow:0 12px 26px rgba(0,0,0,.45);}
+  .c-photo .frame{width:100%;height:100%;border-radius:2px;background-size:cover;background-position:center;background-color:#e9d9c8;background-image:linear-gradient(135deg,#ffd6e8,#f0c869);}
+  .c-heart{position:absolute;font-size:clamp(14px,4vw,20px);z-index:4;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4));}
+  .c-caption{
+    position:absolute;background:var(--cream);border-radius:4px;padding:8% 6%;
+    box-shadow:0 12px 26px rgba(0,0,0,.45);
+    font-family:'Cormorant Garamond',serif;font-style:italic;color:#3a1f4d;font-size:.82rem;line-height:1.4;
+  }
+
   #s-letter{background:radial-gradient(ellipse at 50% 50%,var(--plum) 0%,var(--midnight) 75%);}
   .letter{max-width:560px;background:rgba(255,248,240,.06);border:1px solid rgba(240,200,105,.3);border-radius:12px;padding:34px 28px;backdrop-filter:blur(6px);}
   .letter p{font-family:'Cormorant Garamond',serif;font-size:1.12rem;line-height:1.75;color:var(--blush);margin-bottom:14px;}
@@ -151,10 +178,9 @@
 
 <div id="cover">
   <div class="envelope-wrap" id="envelopeWrap">
-    <div class="envelope">
-      <div class="flap"></div>
-      <div class="seal">💌</div>
-    </div>
+    <div class="cover-love">L❤️VE</div>
+    <img class="cover-mascot-img" src="mascot.jpg" alt="cute bears" onerror="this.style.display='none'">
+    <div class="cover-envelope">💌</div>
     <p class="cover-title">Tumhare liye ek surprise hai...</p>
     <p class="cover-sub">Tap to open</p>
   </div>
@@ -162,6 +188,7 @@
 
 <div id="progress"></div>
 <button id="muteBtn">🔊</button>
+<div id="mascotBadge"><img src="mascot.jpg" alt="cute bears" onerror="this.style.display='none'"></div>
 
 <div class="tap-zone" id="tapPrev"></div>
 <div class="tap-zone" id="tapNext"></div>
@@ -169,8 +196,8 @@
 <div id="story">
 
   <div class="slide" id="s-hero">
-    <h1 class="hero-title">Happiest Birthday<span class="hero-name" id="nameSlot">Meri Jaan</span></h1>
-    <p class="hero-line">Aaj ka din khaas hai, kyunki aaj tum ye Pyari si Duniya me aayi thi — meri zindagi ki sabse pyari wajah. 💕</p>
+    <h1 class="hero-title">Happy Birthday<span class="hero-name" id="nameSlot">Meri Jaan</span></h1>
+    <p class="hero-line">Aaj ka din khaas hai, kyunki aaj tum paida hui thi — meri zindagi ki sabse pyari wajah. 💕</p>
   </div>
 
   <div class="slide photo-slide" id="s-photo1">
@@ -192,6 +219,34 @@
   <div class="slide photo-slide" id="s-photo5">
     <div class="eyebrow">Hamari Yaadein</div>
     <div class="polaroid"><div class="photo-frame" style="background-image:url('photo5.jpg')"></div><p>Hum dono, hamesha 💍</p></div>
+  </div>
+
+  <div class="slide" id="s-collage">
+    <div class="collage-title">Hum Dono, Hamesha</div>
+    <div class="collage-names" id="collageNames">Mihir 💕 Meri Jaan</div>
+    <div class="collage-wrap">
+      <div class="heart-backdrop">❤️</div>
+      <div class="c-photo" style="top:0%;left:8%;width:28%;transform:rotate(-10deg);z-index:2;">
+        <div class="frame" style="background-image:url('collage1.jpg')"></div>
+      </div>
+      <div class="c-photo" style="top:0%;left:62%;width:28%;transform:rotate(10deg);z-index:2;">
+        <div class="frame" style="background-image:url('collage2.jpg')"></div>
+      </div>
+      <div class="c-photo" style="top:22%;left:-4%;width:28%;transform:rotate(-6deg);z-index:2;">
+        <div class="frame" style="background-image:url('collage3.jpg')"></div>
+      </div>
+      <div class="c-photo" style="top:22%;left:76%;width:28%;transform:rotate(6deg);z-index:2;">
+        <div class="frame" style="background-image:url('collage4.jpg')"></div>
+      </div>
+      <div class="c-photo" style="top:46%;left:14%;width:26%;transform:rotate(18deg);z-index:2;">
+        <div class="frame" style="background-image:url('collage5.jpg')"></div>
+      </div>
+      <div class="c-photo" style="top:46%;left:60%;width:26%;transform:rotate(-18deg);z-index:2;">
+        <div class="frame" style="background-image:url('collage6.jpg')"></div>
+      </div>
+      <div class="c-caption" style="top:20%;left:30%;width:40%;z-index:3;">Har tasveer mein tumhari muskaan, meri sabse badi khushi hai 💕</div>
+      <div class="c-heart" style="top:66%;left:44%;font-size:22px;">❤️</div>
+    </div>
   </div>
 
   <div class="slide" id="s-letter">
@@ -225,8 +280,9 @@
 </audio>
 
 <script>
-  const GF_NAME = "My Dear Vaiduuuu❤️"; // <-- yahan uska naam likho, e.g. "Priya"
+  const GF_NAME = "Meri Jaan"; // <-- yahan uska naam likho, e.g. "Priya"
   document.getElementById('nameSlot').textContent = GF_NAME;
+  document.getElementById('collageNames').textContent = "Mihir 💕 " + GF_NAME;
 
   const starsWrap = document.getElementById('stars');
   for(let i=0;i<70;i++){
@@ -280,6 +336,7 @@
     {id:'s-photo3', duration:3500},
     {id:'s-photo4', duration:3500},
     {id:'s-photo5', duration:3500},
+    {id:'s-collage', duration:6000},
     {id:'s-letter', duration:9000},
     {id:'s-quote1', duration:4000},
     {id:'s-quote2', duration:4000},
@@ -303,6 +360,16 @@
   let timer = null;
   function clearTimer(){ if(timer){ clearTimeout(timer); timer=null; } }
 
+  const mascotBadge = document.getElementById('mascotBadge');
+  const mascotAnims = ['anim-bounce','anim-slide-left','anim-spin','anim-slide-right','anim-pop','anim-flip'];
+
+  function playMascot(index){
+    mascotBadge.style.display = 'flex';
+    mascotAnims.forEach(a=>mascotBadge.classList.remove(a));
+    void mascotBadge.offsetWidth; // force reflow to restart animation
+    mascotBadge.classList.add(mascotAnims[index % mascotAnims.length]);
+  }
+
   function goTo(index){
     if(index < 0 || index >= slideDefs.length) return;
     clearTimer();
@@ -310,6 +377,7 @@
     current = index;
     const def = slideDefs[current];
     document.getElementById(def.id).classList.add('active');
+    playMascot(current);
 
     segs.forEach((fill,i)=>{
       fill.style.transition = 'none';
